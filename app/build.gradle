@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.way.storyapp"
@@ -96,4 +96,7 @@ dependencies {
 
     // Lottie Files
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    // Okhttp
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.7"
 }
