@@ -1,7 +1,6 @@
 package com.way.storyapp.presentation.ui.component
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextUtils
@@ -97,12 +96,6 @@ class CustomEditText : AppCompatEditText, View.OnTouchListener {
 
             override fun afterTextChanged(p0: Editable?) {}
         })
-    }
-
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        maxLines = 1
-        isSingleLine = true
     }
 
     private fun setButtonDrawables(
