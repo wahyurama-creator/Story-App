@@ -3,6 +3,8 @@ package com.way.storyapp.presentation.ui.utils
 import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.text.TextUtils
+import android.util.Patterns
 import com.way.storyapp.R
 import java.io.File
 import java.text.SimpleDateFormat
@@ -54,3 +56,6 @@ fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
         )
     }
 }
+
+fun String.isValidEmail() =
+    !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
