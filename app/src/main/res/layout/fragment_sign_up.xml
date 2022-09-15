@@ -7,7 +7,7 @@
     tools:context=".presentation.ui.fragment.auth.SignUpFragment">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:text="@string/sign_up"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/ivBack"
+        app:layout_constraintTop_toBottomOf="@+id/ivBack" />
 
     <com.way.storyapp.presentation.ui.component.CustomEditText
         android:id="@+id/etName"
@@ -83,8 +83,9 @@
 
     <ImageView
         android:id="@+id/ivUser"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
         android:layout_marginTop="24dp"
         android:src="@drawable/user_empty"
         app:layout_constraintEnd_toEndOf="parent"
