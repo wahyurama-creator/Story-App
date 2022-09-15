@@ -14,4 +14,5 @@
     <string name="camera">Camera</string>
     <string name="camera_failure">Camera is not found</string>
     <string name="switch_camera">Switch Camera</string>
+    <string name="not_have_permission">Not have permission</string>
 </resources>
