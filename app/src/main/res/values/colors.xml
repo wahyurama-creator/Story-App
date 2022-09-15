@@ -10,11 +10,8 @@
 
     <color name="gray_500">#FFE4DFDF</color>
     <color name="gray_700">#FF807A7A</color>
+    <color name="blue_200">#ADB7FF</color>
     <color name="blue_500">#FF5669FF</color>
     <color name="blue_700">#FF3D56F0</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="light_blue_900">#FF01579B</color>
-    <color name="light_blue_A200">#FF40C4FF</color>
-    <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
 </resources>
