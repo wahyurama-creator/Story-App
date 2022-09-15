@@ -1,14 +1,11 @@
 package com.way.storyapp.presentation.ui.fragment.auth
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import com.way.storyapp.R
+import androidx.navigation.fragment.findNavController
 import com.way.storyapp.databinding.FragmentSignInBinding
 
 class SignInFragment : Fragment() {
@@ -27,5 +24,14 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.tvSignUp.setOnClickListener {
+            val action = SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
+            findNavController().navigate(action)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
