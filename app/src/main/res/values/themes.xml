@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.StoryApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.StoryApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/blue_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,35 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="TitleMedium35" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/airbnb_cereal_w_md</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TitleMedium24" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/airbnb_cereal_w_md</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BodyBook15Blue" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/airbnb_cereal_w_bk</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/blue_500</item>
+    </style>
+
+    <style name="BodyBook15Black" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/airbnb_cereal_w_bk</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BtnBook16White" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/airbnb_cereal_w_bk</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>

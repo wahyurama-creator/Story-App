@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/StoryApp/app/src/main/res/drawable/bg_edit_text.xml" value="0.2545" />
+        <entry key="..\:/AndroidProject/StoryApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/AndroidProject/StoryApp/app/src/main/res/layout/fragment_add_story.xml" value="0.10989583333333333" />
+        <entry key="..\:/AndroidProject/StoryApp/app/src/main/res/layout/fragment_auth.xml" value="0.33" />
+        <entry key="..\:/AndroidProject/StoryApp/app/src/main/res/layout/fragment_sign_in.xml" value="0.33" />
+        <entry key="..\:/AndroidProject/StoryApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
+        <entry key="..\:/AndroidProject/StoryApp/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
+        <entry key="..\:/AndroidProject/StoryApp/app/src/main/res/layout/fragment_splash_image.xml" value="0.25" />
       </map>
     </option>
   </component>

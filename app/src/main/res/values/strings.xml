@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Story App</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password_err_length">Password must be 6 character</string>
+    <string name="email_err_format">Email is not valid</string>
+    <string name="sign_in">Sign In</string>
+    <string name="placeholder_email">abc@email.com</string>
+    <string name="placeholder_password">Your password</string>
+    <string name="not_have_an_account">Not have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="back">Back</string>
+    <string name="full_name">Full name</string>
+    <string name="user_profile">user Profile</string>
 </resources>
