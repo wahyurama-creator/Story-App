@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.way.storyapp.presentation.ui.fragment.auth
 
 import android.Manifest
@@ -17,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.CircleCropTransformation
-import coil.transform.Transformation
 import com.way.storyapp.R
 import com.way.storyapp.databinding.FragmentSignUpBinding
 import com.way.storyapp.presentation.ui.fragment.auth.camera.CameraData
@@ -81,6 +78,7 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
