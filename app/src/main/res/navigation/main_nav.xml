@@ -36,7 +36,18 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/signInFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/signUpFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signUpFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+        <argument
+            android:name="argsCamera"
+            app:argType="com.way.storyapp.presentation.ui.fragment.auth.camera.CameraData"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/listStoryFragment"
@@ -52,4 +63,16 @@
         android:name="com.way.storyapp.presentation.ui.fragment.add.AddStoryFragment"
         android:label="fragment_add_story"
         tools:layout="@layout/fragment_add_story" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.way.storyapp.presentation.ui.fragment.auth.camera.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_cameraFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
