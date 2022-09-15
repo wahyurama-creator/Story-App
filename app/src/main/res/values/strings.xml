@@ -11,4 +11,7 @@
     <string name="back">Back</string>
     <string name="full_name">Full name</string>
     <string name="user_profile">user Profile</string>
+    <string name="camera">Camera</string>
+    <string name="camera_failure">Camera is not found</string>
+    <string name="switch_camera">Switch Camera</string>
 </resources>

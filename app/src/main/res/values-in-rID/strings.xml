@@ -12,4 +12,7 @@
     <string name="back">kembali</string>
     <string name="full_name">Full name</string>
     <string name="user_profile">user Profile</string>
+    <string name="camera">Kamera</string>
+    <string name="camera_failure">Kamera tidak ditemukan</string>
+    <string name="switch_camera">Balik kamera</string>
 </resources>
