@@ -114,16 +114,31 @@ class CustomEditText : AppCompatEditText, View.OnTouchListener {
 
     private fun handleOnTextChange(s: CharSequence?) {
         // 33 for input type Email, 129 for input type Password, 97 for input type Person
-        if (inputType == 33 && s.toString().isNotEmpty()) {
-            showClearButton()
-            if (!isValidEmail(s.toString())) error = context.getString(R.string.email_err_format)
+        when (inputType) {
+            33 -> {
+                if (s.toString().isNotEmpty()) {
+                    showClearButton()
+                    if (!isValidEmail(s.toString())) error =
+                        context.getString(R.string.email_err_format)
+                } else {
+                    hideButton()
+                }
+            }
+            129 -> {
+                if (s.toString().length <= 6 && s.toString().isNotEmpty()) {
+                    error = context.getString(R.string.password_err_length)
+                } else {
+                    hideButton()
+                }
+            }
+            97 -> {
+                if (s.toString().isEmpty()) {
+                    hideButton()
+                } else {
+                    showClearButton()
+                }
+            }
         }
-        if (inputType == 129 && s.toString().length <= 6 && s.toString().isNotEmpty()) {
-            error = context.getString(R.string.password_err_length)
-        }
-        if (inputType == 97 && s.toString().isNotEmpty()) {
-            showClearButton()
-        } else hideButton()
     }
 
     private fun setImageStart(): Drawable? {

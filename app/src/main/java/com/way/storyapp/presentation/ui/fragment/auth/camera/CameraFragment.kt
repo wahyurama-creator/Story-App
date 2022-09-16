@@ -35,7 +35,7 @@ class CameraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.captureImage.setOnClickListener { takePhoto() }
+//        binding.captureImage.setOnClickListener { takePhoto() }
         binding.switchCamera.setOnClickListener {
             cameraSelector =
                 if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
@@ -44,31 +44,31 @@ class CameraFragment : Fragment() {
         }
     }
 
-    private fun takePhoto() {
-        val imageCapture = imageCapture ?: return
-        val photoFile = createFile(requireActivity().application)
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-        imageCapture.takePicture(
-            outputOptions, ContextCompat.getMainExecutor(requireContext()),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    val cameraData =
-                        CameraData(photoFile, cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
-                    val action =
-                        CameraFragmentDirections.actionCameraFragmentToSignUpFragment(cameraData)
-                    findNavController().navigate(action)
-                }
-
-                override fun onError(exception: ImageCaptureException) {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.camera_failure),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        )
-    }
+//    private fun takePhoto() {
+//        val imageCapture = imageCapture ?: return
+//        val photoFile = createFile(requireActivity().application)
+//        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+//        imageCapture.takePicture(
+//            outputOptions, ContextCompat.getMainExecutor(requireContext()),
+//            object : ImageCapture.OnImageSavedCallback {
+//                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+//                    val cameraData =
+//                        CameraData(photoFile, cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+//                    val action =
+//                        CameraFragmentDirections.actionCameraFragmentToSignUpFragment(cameraData)
+//                    findNavController().navigate(action)
+//                }
+//
+//                override fun onError(exception: ImageCaptureException) {
+//                    Toast.makeText(
+//                        context,
+//                        getString(R.string.camera_failure),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        )
+//    }
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())

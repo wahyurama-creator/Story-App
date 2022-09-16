@@ -2,7 +2,7 @@ package com.way.storyapp.data.remote.model.auth
 
 import com.google.gson.annotations.SerializedName
 
-data class UserData(
+data class UserRegisterData(
     @SerializedName("name")
     val name: String?,
     @SerializedName("email")
