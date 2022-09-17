@@ -15,4 +15,9 @@
     <string name="camera_failure">Camera is not found</string>
     <string name="switch_camera">Switch Camera</string>
     <string name="not_have_permission">Not have permission</string>
+    <string name="story_image">Story Image</string>
+    <string name="story_details">Story Details</string>
+    <string name="date">Date</string>
+    <string name="location">Location</string>
+    <string name="about_story">About Story</string>
 </resources>
