@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_listStoryFragment_to_addStoryFragment"
             app:destination="@id/addStoryFragment" />
+        <action
+            android:id="@+id/action_listStoryFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/addStoryFragment"
@@ -79,4 +82,19 @@
         android:name="com.way.storyapp.presentation.ui.fragment.auth.camera.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.way.storyapp.presentation.ui.fragment.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="storyArgs"
+            app:argType="com.way.storyapp.data.remote.model.story.Story" />
+        <action
+            android:id="@+id/action_detailFragment_to_listStoryFragment"
+            app:destination="@id/listStoryFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/detailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
