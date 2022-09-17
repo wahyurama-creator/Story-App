@@ -1,16 +1,9 @@
 package com.way.storyapp.presentation.ui.viewmodel
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.os.Build
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.way.storyapp.data.Repository
+import com.way.storyapp.data.local.model.DataStoreRepository
 import com.way.storyapp.data.remote.model.story.StoryResponse
 import com.way.storyapp.presentation.ui.utils.Resource
 import com.way.storyapp.presentation.ui.utils.isNetworkAvailable
@@ -22,16 +15,19 @@ import javax.inject.Inject
 @HiltViewModel
 class ListStoryViewModel @Inject constructor(
     private val repository: Repository,
-    val app: Application
+    val app: Application,
+    dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(app) {
     private val _storyResponse: MutableLiveData<Resource<StoryResponse>> = MutableLiveData()
     var storyResponse: LiveData<Resource<StoryResponse>> = _storyResponse
 
-    fun getAllStory(auth: String, queries: Map<String, String>) = viewModelScope.launch {
+    val readToken: LiveData<String> = dataStoreRepository.readToken().asLiveData()
+
+    fun getAllStory(auth: String, queries: Map<String, Int>) = viewModelScope.launch {
         getAllStorySafeCall(auth, queries)
     }
 
-    private suspend fun getAllStorySafeCall(auth: String, queries: Map<String, String>) {
+    private suspend fun getAllStorySafeCall(auth: String, queries: Map<String, Int>) {
         _storyResponse.value = Resource.Loading()
         if (isNetworkAvailable(app)) {
             try {
@@ -68,5 +64,11 @@ class ListStoryViewModel @Inject constructor(
         }
     }
 
-
+    fun setQueryParam(): HashMap<String, Int> {
+        val query = HashMap<String, Int>()
+        query["page"] = 1
+        query["size"] = 10
+        query["location"] = 1
+        return query
+    }
 }

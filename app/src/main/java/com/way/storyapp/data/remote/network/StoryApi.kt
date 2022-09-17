@@ -33,6 +33,6 @@ interface StoryApi {
     @GET("stories")
     suspend fun getAllStory(
         @Header("Authorization") auth: String,
-        @QueryMap queries: Map<String, String>,
+        @QueryMap queries: Map<String, Int>,
     ): Response<StoryResponse>
 }

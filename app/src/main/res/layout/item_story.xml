@@ -25,7 +25,8 @@
 
             <ImageView
                 android:id="@+id/ivStory"
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
+                android:scaleType="centerCrop"
                 android:layout_height="0dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"

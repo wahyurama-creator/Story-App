@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.way.storyapp.data.local.model.UserModel
+import com.way.storyapp.data.remote.model.auth.LoginResult
 import com.way.storyapp.data.remote.model.auth.UserRegisterData
 import com.way.storyapp.databinding.FragmentSignInBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
@@ -65,9 +67,12 @@ class SignInFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     showLoading(false)
-                    Toast.makeText(context, response.message.toString(), Toast.LENGTH_SHORT).show()
-                    val action = SignInFragmentDirections.actionSignInFragmentToListStoryFragment()
-                    findNavController().navigate(action)
+                    if (response.data != null) {
+                        saveAccount(response.data.loginResult)
+                        val action =
+                            SignInFragmentDirections.actionSignInFragmentToListStoryFragment()
+                        findNavController().navigate(action)
+                    }
                 }
                 is Resource.Error -> {
                     showLoading(false)
@@ -82,6 +87,15 @@ class SignInFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun saveAccount(result: LoginResult) {
+        val userModel = UserModel(
+            name = result.name,
+            token = result.token,
+            stateLogin = true
+        )
+        authViewModel.saveAccount(userModel)
     }
 
     private fun handleEditText() {

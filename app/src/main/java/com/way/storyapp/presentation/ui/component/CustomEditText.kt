@@ -125,7 +125,7 @@ class CustomEditText : AppCompatEditText, View.OnTouchListener {
                 }
             }
             129 -> {
-                if (s.toString().length <= 6 && s.toString().isNotEmpty()) {
+                if (s.toString().length < 6 && s.toString().isNotEmpty()) {
                     error = context.getString(R.string.password_err_length)
                 } else {
                     hideButton()

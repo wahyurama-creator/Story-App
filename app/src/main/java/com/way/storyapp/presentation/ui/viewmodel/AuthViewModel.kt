@@ -1,18 +1,18 @@
 package com.way.storyapp.presentation.ui.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.gson.Gson
 import com.way.storyapp.data.Repository
+import com.way.storyapp.data.local.model.DataStoreRepository
+import com.way.storyapp.data.local.model.UserModel
 import com.way.storyapp.data.remote.model.auth.LoginResponse
 import com.way.storyapp.data.remote.model.auth.PostResponse
 import com.way.storyapp.data.remote.model.auth.UserRegisterData
 import com.way.storyapp.presentation.ui.utils.Resource
 import com.way.storyapp.presentation.ui.utils.isNetworkAvailable
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
@@ -21,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val repository: Repository,
-    val app: Application
+    val app: Application,
+    private val dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(app) {
     private var _postRegister: MutableLiveData<Resource<PostResponse>> = MutableLiveData()
     val postRegister: LiveData<Resource<PostResponse>> = _postRegister
@@ -29,12 +30,19 @@ class AuthViewModel @Inject constructor(
     private var _postLogin: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
     val postLogin: LiveData<Resource<LoginResponse>> = _postLogin
 
+    val readAccount: LiveData<UserModel> = dataStoreRepository.readAccount().asLiveData()
+
     fun postRegister(userRegisterData: UserRegisterData) = viewModelScope.launch {
         postRegisterSafeCall(userRegisterData)
     }
 
     fun postLogin(userRegisterData: UserRegisterData) = viewModelScope.launch {
         postLoginSafeCall(userRegisterData)
+    }
+
+    fun saveAccount(userModel: UserModel) = viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.login()
+        dataStoreRepository.saveAccount(userModel)
     }
 
     private suspend fun postLoginSafeCall(userRegisterData: UserRegisterData) {
