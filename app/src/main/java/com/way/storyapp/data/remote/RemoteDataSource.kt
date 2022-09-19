@@ -16,7 +16,7 @@ class RemoteDataSource @Inject constructor(private val storyApi: StoryApi) {
     suspend fun login(userRegisterData: UserRegisterData): Response<LoginResponse> =
         storyApi.login(userRegisterData)
 
-    suspend fun postStory(auth: String, file: MultipartBody.Part, parts: Map<String, RequestBody>) =
+    suspend fun postStory(auth: String, file: MultipartBody.Part, parts: HashMap<String, RequestBody>) =
         storyApi.postStory(auth, file, parts)
 
     suspend fun getAllStory(auth: String, queries: Map<String, Int>) =

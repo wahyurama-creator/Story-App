@@ -1,4 +1,4 @@
-package com.way.storyapp.presentation.ui.fragment.auth.camera
+package com.way.storyapp.presentation.ui.fragment.add.camera
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

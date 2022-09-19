@@ -21,13 +21,12 @@ interface StoryApi {
         @Body userRegisterData: UserRegisterData
     ): Response<LoginResponse>
 
-    @Headers("Content-Type: multipart/form-data")
     @Multipart
     @POST("stories")
     suspend fun postStory(
         @Header("Authorization") auth: String,
         @Part file: MultipartBody.Part,
-        @PartMap parts: Map<String, RequestBody>,
+        @PartMap parts: HashMap<String, RequestBody>,
     ): Response<PostResponse>
 
     @GET("stories")

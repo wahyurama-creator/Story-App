@@ -59,8 +59,8 @@ class DetailFragment : Fragment() {
             //2022-09-19T01:58:17.674Z
             tvDate.text = story.createdAt.substringBefore("T")
             tvTime.text = story.createdAt.substringAfter("T").substringBefore(".")
-            tvLocation.text = getAddress(LatLng(story.lat, story.lon))
-            tvLocationDetail.text = getString(R.string.detail_location, story.lat, story.lon)
+            tvLocation.text = getAddress(LatLng(story.lat, story.lon)) ?: "Unavailable"
+            tvLocationDetail.text = getString(R.string.detail_location, story.lat, story.lon) ?: "Unavailable"
             tvDescription.text = story.description
         }
     }
