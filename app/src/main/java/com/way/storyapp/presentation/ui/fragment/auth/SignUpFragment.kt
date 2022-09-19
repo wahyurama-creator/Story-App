@@ -1,6 +1,5 @@
 package com.way.storyapp.presentation.ui.fragment.auth
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +22,6 @@ class SignUpFragment : Fragment() {
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
 
-//    private lateinit var cameraData: CameraData
-//    private var isPictureClicked = false
-
     private lateinit var factory: ViewModelFactory
     private lateinit var authViewModel: AuthViewModel
 
@@ -43,15 +39,6 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-//        if (args.argsCamera != null) {
-//            cameraData = args.argsCamera!!
-//            isPictureClicked = true
-//            showImageData()
-//        }
-
-//        binding.ivUser.setOnClickListener { startCameraX() }
 
         binding.ivBack.setOnClickListener { performBackAction() }
 
@@ -97,56 +84,11 @@ class SignUpFragment : Fragment() {
         binding.progressBar.visibility = if (isShow) View.VISIBLE else View.INVISIBLE
     }
 
-//    private fun showImageData() {
-//        val imgFile = cameraData.file
-//        val isBackCamera = cameraData.isBackCamera
-//        val result = rotateBitmap(BitmapFactory.decodeFile(imgFile.path), isBackCamera)
-//        binding.ivUser.load(result) {
-//            transformations(CircleCropTransformation())
-//        }
-//    }
-
-//    private fun startCameraX() {
-//        if (!allPermissionGranted()) {
-//            ActivityCompat.requestPermissions(
-//                requireActivity(), REQUIRED_PERMISSION, REQUEST_CODE_PERMISSION
-//            )
-//        }
-//        val action = SignUpFragmentDirections.actionSignUpFragmentToCameraFragment()
-//        findNavController().navigate(action)
-//    }
-
 
     private fun performBackAction() {
         val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
         findNavController().navigate(action)
     }
-
-//    @Suppress("DEPRECATION")
-//    @Deprecated("Deprecated in Java")
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == REQUEST_CODE_PERMISSION) {
-//            if (!allPermissionGranted()) {
-//                Toast.makeText(
-//                    context,
-//                    getString(R.string.not_have_permission),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//    }
-//
-//    private fun allPermissionGranted() = REQUIRED_PERMISSION.all {
-//        ContextCompat.checkSelfPermission(
-//            requireContext(),
-//            it
-//        ) == PackageManager.PERMISSION_GRANTED
-//    }
 
     private fun handleEditText() {
         binding.apply {
@@ -168,11 +110,6 @@ class SignUpFragment : Fragment() {
         val password = binding.etPassword.text.toString()
         binding.button.isEnabled =
             name.isNotEmpty() && email.isValidEmail() && email.isNotEmpty() && password.length > 6 && password.isNotEmpty()
-    }
-
-    companion object {
-        private val REQUIRED_PERMISSION = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSION = 10
     }
 
     override fun onDestroy() {
