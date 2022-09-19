@@ -21,4 +21,5 @@
     <string name="date">Date</string>
     <string name="location">Location</string>
     <string name="about_story">About Story</string>
+    <string name="detail_location">Detail lokasi di %f, %f</string>
 </resources>

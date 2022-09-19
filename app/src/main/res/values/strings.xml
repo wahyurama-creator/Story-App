@@ -20,4 +20,5 @@
     <string name="date">Date</string>
     <string name="location">Location</string>
     <string name="about_story">About Story</string>
+    <string name="detail_location">Detail location is %f, %f</string>
 </resources>
