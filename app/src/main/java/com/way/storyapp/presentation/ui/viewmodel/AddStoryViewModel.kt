@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddStoryViewModel @Inject constructor(
     private val repository: Repository,
-    val app: Application,
+    private val app: Application,
     dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(app) {
     private var _postStory: MutableLiveData<Resource<PostResponse>> = MutableLiveData()

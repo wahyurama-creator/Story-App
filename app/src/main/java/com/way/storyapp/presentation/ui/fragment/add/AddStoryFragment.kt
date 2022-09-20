@@ -31,9 +31,9 @@ import com.way.storyapp.databinding.FragmentAddStoryBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
 import com.way.storyapp.presentation.ui.fragment.add.camera.CameraData
 import com.way.storyapp.presentation.ui.utils.Resource
-import com.way.storyapp.presentation.ui.utils.createFile
 import com.way.storyapp.presentation.ui.utils.reduceFileImage
 import com.way.storyapp.presentation.ui.utils.rotateBitmap
+import com.way.storyapp.presentation.ui.utils.uriToFile
 import com.way.storyapp.presentation.ui.viewmodel.AddStoryViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
@@ -77,12 +77,18 @@ class AddStoryFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        imgFile = null
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (argsCamera.argsCameraData != null) {
             cameraData = argsCamera.argsCameraData!!
             imgFile = cameraData.file
+            Log.d("ImageFileCamera", imgFile.toString())
             val isBackCamera = cameraData.isBackCamera
             val result = rotateBitmap(BitmapFactory.decodeFile(imgFile!!.path), isBackCamera)
             binding.ivStory.load(result)
@@ -104,6 +110,7 @@ class AddStoryFragment : Fragment() {
 
     private fun validateData(auth: String) {
         val file = reduceFileImage(imgFile as File)
+        Log.d("ImageFileValidate", imgFile.toString())
         val description = binding.etDescription.text.toString()
         val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -156,8 +163,9 @@ class AddStoryFragment : Fragment() {
     ) {
         if (it.resultCode == AppCompatActivity.RESULT_OK) {
             val selectedImg: Uri = it.data?.data as Uri
-            val myFile = createFile(requireActivity().application)
+            val myFile = uriToFile(selectedImg, requireContext())
             imgFile = myFile
+            Log.d("ImageFileGallery", imgFile.toString())
             binding.ivStory.setImageURI(selectedImg)
         }
     }
