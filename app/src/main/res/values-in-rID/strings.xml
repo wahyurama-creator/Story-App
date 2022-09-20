@@ -27,4 +27,6 @@
     <string name="gallery">Galeri</string>
     <string name="description">Deskripsi</string>
     <string name="upload">Upload</string>
+    <string name="explore">Explore</string>
+    <string name="profile">Profile</string>
 </resources>

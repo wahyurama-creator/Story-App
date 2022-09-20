@@ -19,6 +19,8 @@ import com.way.storyapp.presentation.ui.utils.Resource
 import com.way.storyapp.presentation.ui.utils.isValidEmail
 import com.way.storyapp.presentation.ui.viewmodel.AuthViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SignInFragment : Fragment() {
 
@@ -46,7 +48,7 @@ class SignInFragment : Fragment() {
         handleEditText()
 
         binding.button.setOnClickListener {
-            lifecycleScope.launchWhenCreated {
+            lifecycleScope.launch {
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
                 val userRegisterData = UserRegisterData(null, email, password)
@@ -68,10 +70,13 @@ class SignInFragment : Fragment() {
                 is Resource.Success -> {
                     showLoading(false)
                     if (response.data != null) {
-                        saveAccount(response.data.loginResult)
-                        val action =
-                            SignInFragmentDirections.actionSignInFragmentToListStoryFragment()
-                        findNavController().navigate(action)
+                        lifecycleScope.launch {
+                            saveAccount(response.data.loginResult)
+                            delay(500)
+                            val action =
+                                SignInFragmentDirections.actionSignInFragmentToListStoryFragment()
+                            findNavController().navigate(action)
+                        }
                     }
                 }
                 is Resource.Error -> {

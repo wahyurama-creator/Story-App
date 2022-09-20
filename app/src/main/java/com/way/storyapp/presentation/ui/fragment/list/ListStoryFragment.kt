@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.way.storyapp.databinding.FragmentListStoryBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
@@ -17,6 +16,7 @@ import com.way.storyapp.presentation.ui.fragment.list.adapter.StoryAdapter
 import com.way.storyapp.presentation.ui.utils.Resource
 import com.way.storyapp.presentation.ui.viewmodel.ListStoryViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class ListStoryFragment : Fragment() {
 
@@ -45,15 +45,14 @@ class ListStoryFragment : Fragment() {
 
         setupRecyclerView()
 
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             listStoryViewModel.readToken.observe(viewLifecycleOwner) {
-                getAllStory("Bearer $it")
+                if (it.isNullOrEmpty()) {
+                    showLoading(true)
+                } else {
+                    getAllStory("Bearer $it")
+                }
             }
-        }
-
-        binding.fabAddStory.setOnClickListener {
-            val action = ListStoryFragmentDirections.actionListStoryFragmentToAddStoryFragment()
-            findNavController().navigate(action)
         }
     }
 

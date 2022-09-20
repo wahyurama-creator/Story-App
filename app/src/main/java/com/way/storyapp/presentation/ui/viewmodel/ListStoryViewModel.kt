@@ -67,7 +67,7 @@ class ListStoryViewModel @Inject constructor(
     fun setQueryParam(): HashMap<String, Int> {
         val query = HashMap<String, Int>()
         query["page"] = 1
-        query["size"] = 10
+        query["size"] = 20
         query["location"] = 1
         return query
     }

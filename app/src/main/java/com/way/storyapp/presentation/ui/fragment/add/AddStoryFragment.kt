@@ -77,11 +77,6 @@ class AddStoryFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        imgFile = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -116,11 +111,20 @@ class AddStoryFragment : Fragment() {
         val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
             "photo", file.name, requestImageFile
         )
-        postStory(
-            auth, imageMultipart, addStoryViewModel.setMapBody(
-                description, currentLocation!!.latitude, currentLocation!!.longitude
+        try {
+            postStory(
+                auth, imageMultipart, addStoryViewModel.setMapBody(
+                    description, currentLocation!!.latitude, currentLocation!!.longitude
+                )
             )
-        )
+            Log.e("ERROR", auth)
+            Log.e("ERROR", imageMultipart.toString())
+            Log.e("ERROR", description)
+            Log.e("ERROR", currentLocation!!.latitude.toString())
+            Log.e("ERROR", currentLocation!!.longitude.toString())
+        } catch (e: Exception) {
+            Log.e("ERROR", e.printStackTrace().toString())
+        }
     }
 
     private fun postStory(
