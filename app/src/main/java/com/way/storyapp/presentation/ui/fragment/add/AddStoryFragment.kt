@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -101,6 +102,8 @@ class AddStoryFragment : Fragment() {
                 }
             }
         }
+
+        handleOnBackPressed()
     }
 
     private fun validateData(auth: String) {
@@ -210,6 +213,15 @@ class AddStoryFragment : Fragment() {
     private fun performBackAction() {
         val action = AddStoryFragmentDirections.actionAddStoryFragmentToListStoryFragment()
         findNavController().navigate(action)
+    }
+
+    private fun handleOnBackPressed() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                performBackAction()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     private fun handleEditText() {

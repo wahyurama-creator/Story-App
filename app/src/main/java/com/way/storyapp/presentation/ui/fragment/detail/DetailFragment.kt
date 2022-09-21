@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -33,17 +34,15 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        performBackAction()
+        handleOnBackPressed()
+        binding.ivBack.setOnClickListener { performBackAction() }
+
         applyData()
     }
 
     private fun performBackAction() {
-        binding.ivBack.apply {
-            setOnClickListener {
-                val action = DetailFragmentDirections.actionDetailFragmentToListStoryFragment()
-                findNavController().navigate(action)
-            }
-        }
+        val action = DetailFragmentDirections.actionDetailFragmentToListStoryFragment()
+        findNavController().navigate(action)
     }
 
     private fun applyData() {
@@ -84,6 +83,15 @@ class DetailFragment : Fragment() {
         } else {
             return "Location is not available"
         }
+    }
+
+    private fun handleOnBackPressed() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                performBackAction()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     override fun onDestroy() {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,7 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        handleOnBackPressed()
         binding.ivBack.setOnClickListener { performBackAction() }
 
         handleEditText()
@@ -51,7 +53,6 @@ class SignUpFragment : Fragment() {
             val password = binding.etPassword.text.toString()
             val userRegisterData = UserRegisterData(name, email, password)
             postRegister(userRegisterData)
-
         }
     }
 
@@ -110,6 +111,15 @@ class SignUpFragment : Fragment() {
         val password = binding.etPassword.text.toString()
         binding.button.isEnabled =
             name.isNotEmpty() && email.isValidEmail() && email.isNotEmpty() && password.length > 6 && password.isNotEmpty()
+    }
+
+    private fun handleOnBackPressed() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                performBackAction()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     override fun onDestroy() {

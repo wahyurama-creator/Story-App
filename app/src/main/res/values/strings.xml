@@ -28,4 +28,6 @@
     <string name="upload">Upload</string>
     <string name="explore">Explore</string>
     <string name="profile">Profile</string>
+    <string name="your_token">Your token</string>
+    <string name="logout">Logout</string>
 </resources>

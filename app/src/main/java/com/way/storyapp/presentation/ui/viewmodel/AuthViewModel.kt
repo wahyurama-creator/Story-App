@@ -32,6 +32,10 @@ class AuthViewModel @Inject constructor(
 
     val readAccount: LiveData<UserModel> = dataStoreRepository.readAccount().asLiveData()
 
+    fun logout() = viewModelScope.launch {
+        dataStoreRepository.logout()
+    }
+
     fun postRegister(userRegisterData: UserRegisterData) = viewModelScope.launch {
         postRegisterSafeCall(userRegisterData)
     }
