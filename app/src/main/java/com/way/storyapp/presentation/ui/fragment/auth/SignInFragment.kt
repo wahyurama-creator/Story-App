@@ -120,7 +120,7 @@ class SignInFragment : Fragment() {
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
         binding.button.isEnabled =
-            email.isValidEmail() && email.isNotEmpty() && password.length > 6 && password.isNotEmpty()
+            email.isValidEmail() && email.isNotEmpty() && password.length > 5 && password.isNotEmpty()
     }
 
     private fun handleOnBackPressed() {
