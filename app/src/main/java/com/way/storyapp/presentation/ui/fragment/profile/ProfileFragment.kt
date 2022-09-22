@@ -1,6 +1,8 @@
 package com.way.storyapp.presentation.ui.fragment.profile
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import com.way.storyapp.presentation.ui.activity.MainActivity
 import com.way.storyapp.presentation.ui.viewmodel.AuthViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class ProfileFragment : Fragment() {
 
@@ -49,6 +52,15 @@ class ProfileFragment : Fragment() {
         }
 
         handleBackStack()
+
+        changeLanguage()
+    }
+
+    private fun changeLanguage() {
+        binding.ivLanguage.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
+        binding.tvLanguage.text = Locale.getDefault().country
     }
 
     private fun performBackAction(toSignIn: Boolean = false, toList: Boolean = false) {

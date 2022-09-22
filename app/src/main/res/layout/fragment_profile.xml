@@ -75,4 +75,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/tvLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        tools:text="EN"
+        style="@style/BodyBook15Black"
+        android:maxLength="4"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/ic_language"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
+        app:layout_constraintEnd_toStartOf="@+id/tvLanguage"
+        app:layout_constraintTop_toTopOf="@+id/tvLanguage"
+        android:contentDescription="@string/language" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

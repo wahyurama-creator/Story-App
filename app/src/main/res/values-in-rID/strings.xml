@@ -27,8 +27,9 @@
     <string name="gallery">Galeri</string>
     <string name="description">Deskripsi</string>
     <string name="upload">Upload</string>
-    <string name="explore">Explore</string>
-    <string name="profile">Profile</string>
-    <string name="your_token">Your token</string>
-    <string name="logout">Logout</string>
+    <string name="explore">Eksplorasi</string>
+    <string name="profile">Profil</string>
+    <string name="your_token">Token kamu</string>
+    <string name="logout">Keluar</string>
+    <string name="language">Bahasa</string>
 </resources>

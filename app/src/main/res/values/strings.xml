@@ -30,4 +30,5 @@
     <string name="profile">Profile</string>
     <string name="your_token">Your token</string>
     <string name="logout">Logout</string>
+    <string name="language">Language</string>
 </resources>
