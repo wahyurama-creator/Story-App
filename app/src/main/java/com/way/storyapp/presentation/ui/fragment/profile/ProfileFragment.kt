@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.way.storyapp.R
 import com.way.storyapp.databinding.FragmentProfileBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
 import com.way.storyapp.presentation.ui.viewmodel.AuthViewModel
@@ -44,18 +45,27 @@ class ProfileFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             authViewModel.logout()
-            val action = ProfileFragmentDirections.actionProfileFragmentToSignInFragment()
-            findNavController().navigate(action)
+            performBackAction(toSignIn = true, toList = false)
         }
 
         handleBackStack()
     }
 
+    private fun performBackAction(toSignIn: Boolean = false, toList: Boolean = false) {
+        when {
+            toSignIn && !toList -> {
+                findNavController().navigate(R.id.action_profileFragment_to_signInFragment)
+            }
+            toList && !toSignIn -> {
+                findNavController().navigate(R.id.action_profileFragment_to_listStoryFragment)
+            }
+        }
+    }
+
     private fun handleBackStack() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val action = ProfileFragmentDirections.actionProfileFragmentToListStoryFragment()
-                findNavController().navigate(action)
+                performBackAction(toSignIn = false, toList = true)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)

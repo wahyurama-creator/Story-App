@@ -10,6 +10,7 @@ import com.way.storyapp.data.remote.model.story.Story
 import com.way.storyapp.data.remote.model.story.StoryResponse
 import com.way.storyapp.databinding.ItemStoryBinding
 import com.way.storyapp.presentation.ui.fragment.list.ListStoryFragmentDirections
+//import com.way.storyapp.presentation.ui.fragment.list.ListStoryFragmentDirections
 import javax.inject.Inject
 
 class StoryAdapter @Inject constructor() : RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {

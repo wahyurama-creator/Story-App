@@ -24,12 +24,14 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var storyAdapter: StoryAdapter
 
+    private lateinit var navHost: NavHostFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHost =
+        navHost =
             supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as NavHostFragment
         binding.bottomNavigationView.setupWithNavController(navHost.navController)
 

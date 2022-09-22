@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -45,6 +46,7 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        handleOnBackPressed()
         handleEditText()
 
         binding.button.setOnClickListener {
@@ -119,6 +121,15 @@ class SignInFragment : Fragment() {
         val password = binding.etPassword.text.toString()
         binding.button.isEnabled =
             email.isValidEmail() && email.isNotEmpty() && password.length > 6 && password.isNotEmpty()
+    }
+
+    private fun handleOnBackPressed() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     private fun showLoading(isShow: Boolean) {

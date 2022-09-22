@@ -13,14 +13,15 @@
         <action
             android:id="@+id/action_splashFragment_to_signInFragment"
             app:destination="@id/signInFragment"
+            app:enterAnim="@android:anim/fade_in"
             app:launchSingleTop="true"
-            app:popUpTo="@id/main_nav"
+            app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_listStoryFragment"
             app:destination="@id/listStoryFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/splashFragment"
+            app:popUpTo="@id/listStoryFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -30,12 +31,20 @@
         tools:layout="@layout/fragment_sign_in" >
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_signInFragment_to_listStoryFragment"
             app:destination="@id/listStoryFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
             app:launchSingleTop="true"
-            app:popUpTo="@id/main_nav"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpTo="@id/listStoryFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -46,8 +55,9 @@
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/signUpFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -57,38 +67,52 @@
         tools:layout="@layout/fragment_list_story" >
         <action
             android:id="@+id/action_listStoryFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/addStoryFragment"
         android:name="com.way.storyapp.presentation.ui.fragment.add.AddStoryFragment"
         android:label="fragment_add_story"
-        tools:layout="@layout/fragment_add_story" >
-        <action
-            android:id="@+id/action_addStoryFragment_to_cameraFragment"
-            app:destination="@id/cameraFragment" />
-        <action
-            android:id="@+id/action_addStoryFragment_to_listStoryFragment"
-            app:destination="@id/listStoryFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/main_nav"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_add_story">
         <argument
             android:name="argsCameraData"
             app:argType="com.way.storyapp.presentation.ui.fragment.add.camera.CameraData"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_addStoryFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_addStoryFragment_to_listStoryFragment"
+            app:destination="@id/listStoryFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"
+            app:popUpTo="@id/addStoryFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.way.storyapp.presentation.ui.fragment.add.camera.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" >
+
         <action
             android:id="@+id/action_cameraFragment_to_addStoryFragment"
             app:destination="@id/addStoryFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/cameraFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/addStoryFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -102,26 +126,27 @@
         <action
             android:id="@+id/action_detailFragment_to_listStoryFragment"
             app:destination="@id/listStoryFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/detailFragment"
-            app:popUpToInclusive="true" />
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
+
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.way.storyapp.presentation.ui.fragment.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
+
         <action
             android:id="@+id/action_profileFragment_to_signInFragment"
             app:destination="@id/signInFragment"
-            app:launchSingleTop="true"
+            app:enterAnim="@android:anim/fade_in"
             app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_profileFragment_to_listStoryFragment"
             app:destination="@id/listStoryFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/main_nav"
+            app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

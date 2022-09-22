@@ -90,6 +90,7 @@ class AddStoryFragment : Fragment() {
             binding.ivStory.load(result)
         }
 
+        handleBackStack()
         handleEditText()
 
         binding.btnCamera.setOnClickListener { startCameraX() }
@@ -102,8 +103,6 @@ class AddStoryFragment : Fragment() {
                 }
             }
         }
-
-        handleOnBackPressed()
     }
 
     private fun validateData(auth: String) {
@@ -151,6 +150,7 @@ class AddStoryFragment : Fragment() {
                 }
                 is Resource.Loading -> {
                     showLoading(true)
+                    binding.btnUpload.isEnabled = false
                 }
             }
         }
@@ -211,11 +211,10 @@ class AddStoryFragment : Fragment() {
     }
 
     private fun performBackAction() {
-        val action = AddStoryFragmentDirections.actionAddStoryFragmentToListStoryFragment()
-        findNavController().navigate(action)
+        findNavController().navigate(R.id.action_addStoryFragment_to_listStoryFragment)
     }
 
-    private fun handleOnBackPressed() {
+    private fun handleBackStack() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 performBackAction()
