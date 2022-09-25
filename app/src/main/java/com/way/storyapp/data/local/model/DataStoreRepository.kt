@@ -9,7 +9,6 @@ import com.way.storyapp.data.local.model.DataStoreRepository.PreferencesKey.name
 import com.way.storyapp.data.local.model.DataStoreRepository.PreferencesKey.stateLogin
 import com.way.storyapp.data.local.model.DataStoreRepository.PreferencesKey.token
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -18,7 +17,6 @@ import javax.inject.Inject
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(PREFERENCES_KEY)
 
-@ActivityRetainedScoped
 class DataStoreRepository @Inject constructor(@ApplicationContext private val context: Context) {
     private object PreferencesKey {
         val name = stringPreferencesKey(NAME_KEY)
