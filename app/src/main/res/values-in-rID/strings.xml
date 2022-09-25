@@ -32,4 +32,8 @@
     <string name="your_token">Token kamu</string>
     <string name="logout">Keluar</string>
     <string name="language">Bahasa</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="story_is_empty">Story is Empty</string>
 </resources>
