@@ -12,9 +12,7 @@ import com.way.storyapp.R
 import com.way.storyapp.data.Repository
 import com.way.storyapp.data.local.model.DataStoreRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class StackRemoteViewFactory @Inject constructor(
@@ -28,41 +26,54 @@ class StackRemoteViewFactory @Inject constructor(
     override fun onCreate() {}
 
     override fun onDataSetChanged() {
-        CoroutineScope(Dispatchers.IO).launch {
-//            val token = dataStoreRepository.readToken()
+        runBlocking {
+            val auth = dataStoreRepository.readToken().toString()
             val query = HashMap<String, Int>()
             query["page"] = 1
             query["size"] = 10
             query["location"] = 1
 
             val response = repository.remoteDataSource.getAllStory(
-                auth = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLXFFdzQtVHlpeVRkRnBnNHEiLCJpYXQiOjE2NjM5OTM2MDN9.dOrzlHfX6E_vG3WojXAeZcZfFhQO-J13Y8keabxCjY4",
+                "Bearer $auth",
                 query
             )
-            var story = ""
-            response.body()!!.listStory.forEach {
-                story = it.photoUrl
-                mWidgetItems.add(story)
+            when {
+                response.isSuccessful -> {
+                    response.body()?.listStory?.map {
+                        mWidgetItems.add(it.photoUrl)
+                    }
+                    Log.d("mWidgetItem", mWidgetItems.toString())
+                }
+                !response.isSuccessful -> {
+                    Log.e("ERROR", "Response error")
+                }
+                else -> {
+                    mWidgetItems.clear()
+                }
             }
-            Log.e("mWidget", mWidgetItems.toString())
         }
     }
 
     override fun onDestroy() {
         mWidgetItems.clear()
+        Log.d("mWidgetItemOnDestroy", mWidgetItems.toString())
     }
 
     override fun getCount(): Int = mWidgetItems.size
 
     override fun getViewAt(position: Int): RemoteViews {
         val rv = RemoteViews(mContext.packageName, R.layout.item_story_widget)
-        val bitmap: Bitmap = Glide.with(mContext)
-            .asBitmap()
-            .load(mWidgetItems[position])
-            .submit(512, 512)
-            .get()
-        Log.e("BitmapItem", bitmap.toString())
-        rv.setImageViewBitmap(R.id.ivStoryWidget, bitmap)
+        try {
+            val bitmap: Bitmap = Glide.with(mContext.applicationContext)
+                .asBitmap()
+                .load(mWidgetItems[position])
+                .submit()
+                .get()
+
+            rv.setImageViewBitmap(R.id.ivStoryWidget, bitmap)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         val extras = bundleOf(
             StoryAppWidget.EXTRA_ITEM to position
