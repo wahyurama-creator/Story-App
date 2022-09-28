@@ -27,14 +27,20 @@ class StackRemoteViewFactory @Inject constructor(
 
     override fun onDataSetChanged() {
         runBlocking {
-            val auth = dataStoreRepository.readToken().toString()
             val query = HashMap<String, Int>()
             query["page"] = 1
             query["size"] = 10
             query["location"] = 1
 
+            /* Saya ingin bertanya, ketika saya mengambil data token lalu saya salurkan
+            * ke get API. Widget selalu empty, padahal waktu saya log itu listWidgetnya
+            * ada isinya. Apakah Anda dapat membantu saya?
+            * */
+
+            // val tokenAuth = dataStoreRepository.readToken().collect { }
+
             val response = repository.remoteDataSource.getAllStory(
-                "Bearer $auth",
+                "Bearer $BEARER_TOKEN",
                 query
             )
             when {
@@ -42,38 +48,30 @@ class StackRemoteViewFactory @Inject constructor(
                     response.body()?.listStory?.map {
                         mWidgetItems.add(it.photoUrl)
                     }
-                    Log.d("mWidgetItem", mWidgetItems.toString())
-                }
-                !response.isSuccessful -> {
-                    Log.e("ERROR", "Response error")
                 }
                 else -> {
-                    mWidgetItems.clear()
+                    Log.e(RESPONSE_ERROR, "Response Error")
                 }
             }
         }
+
     }
 
     override fun onDestroy() {
         mWidgetItems.clear()
-        Log.d("mWidgetItemOnDestroy", mWidgetItems.toString())
     }
 
-    override fun getCount(): Int = mWidgetItems.size
+    override fun getCount(): Int = 10
 
     override fun getViewAt(position: Int): RemoteViews {
         val rv = RemoteViews(mContext.packageName, R.layout.item_story_widget)
-        try {
-            val bitmap: Bitmap = Glide.with(mContext.applicationContext)
-                .asBitmap()
-                .load(mWidgetItems[position])
-                .submit()
-                .get()
 
-            rv.setImageViewBitmap(R.id.ivStoryWidget, bitmap)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        val bitmap: Bitmap = Glide.with(mContext.applicationContext)
+            .asBitmap()
+            .load(mWidgetItems[position])
+            .submit()
+            .get()
+        rv.setImageViewBitmap(R.id.ivStoryWidget, bitmap)
 
         val extras = bundleOf(
             StoryAppWidget.EXTRA_ITEM to position
@@ -92,4 +90,9 @@ class StackRemoteViewFactory @Inject constructor(
 
     override fun hasStableIds(): Boolean = false
 
+    companion object {
+        private const val RESPONSE_ERROR = "RESPONSE_ERROR"
+        private const val BEARER_TOKEN =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLXFFdzQtVHlpeVRkRnBnNHEiLCJpYXQiOjE2NjM2ODQ2MzJ9.P5Acm7UFLRMvyTcKBfEvAYpqHQJQsq9E_MsR5u2xo8w"
+    }
 }
