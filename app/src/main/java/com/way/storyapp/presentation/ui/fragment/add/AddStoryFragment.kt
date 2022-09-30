@@ -112,7 +112,8 @@ class AddStoryFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     showLoading(false)
-                    Toast.makeText(context, "Story success uploaded", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.story_success), Toast.LENGTH_SHORT)
+                        .show()
                     performBackAction()
                 }
                 is Resource.Error -> {

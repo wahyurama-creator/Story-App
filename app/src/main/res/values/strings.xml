@@ -36,4 +36,5 @@
     <string name="app_widget_description">This is an app widget description</string>
     <string name="story_is_empty">Story is Empty</string>
     <string name="user_created">User successfully created</string>
+    <string name="story_success">Story success uploaded</string>
 </resources>

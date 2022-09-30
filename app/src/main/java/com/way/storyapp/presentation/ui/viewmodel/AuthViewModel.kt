@@ -77,41 +77,51 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    private fun handlePostDataResponse(response: Response<PostResponse>): Resource<PostResponse> {
-        when {
-            response.isSuccessful -> {
-                val data = response.body()
-                return if (data != null) {
-                    Resource.Success(data)
-                } else {
-                    Resource.Error(response.errorBody().toString())
+    private fun handlePostDataResponse(response: Response<PostResponse>?): Resource<PostResponse> {
+        if (response != null) {
+            when {
+                response.isSuccessful -> {
+                    val data = response.body()
+                    return if (data != null) {
+                        Resource.Success(data)
+                    } else {
+                        Resource.Error(response.errorBody().toString())
+                    }
                 }
+                !response.isSuccessful -> {
+                    val messageErr =
+                        Gson().fromJson(
+                            response.errorBody()?.charStream(),
+                            PostResponse::class.java
+                        )
+                    return Resource.Error(messageErr.message)
+                }
+                else -> return Resource.Error(response.errorBody().toString())
             }
-            !response.isSuccessful -> {
-                val messageErr =
-                    Gson().fromJson(response.errorBody()!!.charStream(), PostResponse::class.java)
-                return Resource.Error(messageErr.message)
-            }
-            else -> return Resource.Error(response.errorBody().toString())
-        }
+        } else return Resource.Error("Response is null")
     }
 
-    private fun handlePostLoginResponse(response: Response<LoginResponse>): Resource<LoginResponse> {
-        when {
-            response.isSuccessful -> {
-                val data = response.body()
-                return if (data != null) {
-                    Resource.Success(data)
-                } else {
-                    Resource.Error(response.message())
+    private fun handlePostLoginResponse(response: Response<LoginResponse>?): Resource<LoginResponse> {
+        if (response != null) {
+            when {
+                response.isSuccessful -> {
+                    val data = response.body()
+                    return if (data != null) {
+                        Resource.Success(data)
+                    } else {
+                        Resource.Error(response.errorBody().toString())
+                    }
                 }
+                !response.isSuccessful -> {
+                    val messageErr =
+                        Gson().fromJson(
+                            response.errorBody()?.charStream(),
+                            PostResponse::class.java
+                        )
+                    return Resource.Error(messageErr.message)
+                }
+                else -> return Resource.Error(response.errorBody().toString())
             }
-            !response.isSuccessful -> {
-                val messageErr =
-                    Gson().fromJson(response.errorBody()!!.charStream(), PostResponse::class.java)
-                return Resource.Error(messageErr.message)
-            }
-            else -> return Resource.Error(response.message())
-        }
+        } else return Resource.Error("Response is null")
     }
 }

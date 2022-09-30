@@ -10,7 +10,6 @@ import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.way.storyapp.R
 import com.way.storyapp.data.Repository
-import com.way.storyapp.data.local.model.DataStoreRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -18,7 +17,6 @@ import javax.inject.Inject
 class StackRemoteViewFactory @Inject constructor(
     @ApplicationContext private val mContext: Context,
     private val repository: Repository,
-    private val dataStoreRepository: DataStoreRepository,
 ) : RemoteViewsService.RemoteViewsFactory {
 
     private val mWidgetItems = ArrayList<String>()
@@ -31,28 +29,6 @@ class StackRemoteViewFactory @Inject constructor(
             query["page"] = 1
             query["size"] = 10
             query["location"] = 1
-
-            /* Saya ingin bertanya, ketika saya mengambil data token lalu saya salurkan
-            * ke get API. Widget selalu empty, padahal waktu saya log itu listWidgetnya
-            * ada isinya. Apakah Anda dapat membantu saya?
-            * */
-
-//            dataStoreRepository.readToken().collect { token ->
-//                val response = repository.remoteDataSource.getAllStory(
-//                    "Bearer $token",
-//                    query
-//                )
-//                when {
-//                    response.isSuccessful -> {
-//                        response.body()?.listStory?.map {
-//                            mWidgetItems.add(it.photoUrl)
-//                        }
-//                    }
-//                    else -> {
-//                        Log.e(RESPONSE_ERROR, "Response Error")
-//                    }
-//                }
-//            }
 
             val response = repository.remoteDataSource.getAllStory(
                 "Bearer $BEARER_TOKEN",
@@ -69,7 +45,6 @@ class StackRemoteViewFactory @Inject constructor(
                 }
             }
         }
-
     }
 
     override fun onDestroy() {

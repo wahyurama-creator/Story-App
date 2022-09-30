@@ -37,7 +37,6 @@ fun createFile(application: Application): File {
         mediaDir != null && mediaDir.exists()
     ) mediaDir else application.filesDir
 
-//    val random = Random.nextInt(0, 100).toString()
     return File(outputDirectory, "$timeStamp.jpg")
 }
 

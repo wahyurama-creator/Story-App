@@ -3,7 +3,6 @@ package com.way.storyapp.presentation.ui.component.widget
 import android.content.Intent
 import android.widget.RemoteViewsService
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
 @AndroidEntryPoint
