@@ -10,10 +10,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.way.storyapp.R
 import com.way.storyapp.data.remote.model.auth.UserRegisterData
 import com.way.storyapp.databinding.FragmentSignUpBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
 import com.way.storyapp.presentation.ui.utils.Resource
+import com.way.storyapp.presentation.ui.utils.hideKeyboard
 import com.way.storyapp.presentation.ui.utils.isValidEmail
 import com.way.storyapp.presentation.ui.viewmodel.AuthViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
@@ -47,6 +49,7 @@ class SignUpFragment : Fragment() {
         handleEditText()
 
         binding.button.setOnClickListener {
+            it.hideKeyboard()
 
             val name = binding.etName.text.toString()
             val email = binding.etEmail.text.toString()
@@ -63,7 +66,8 @@ class SignUpFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     showLoading(false)
-                    Toast.makeText(context, response.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.user_created), Toast.LENGTH_SHORT)
+                        .show()
                     performBackAction()
                 }
                 is Resource.Error -> {

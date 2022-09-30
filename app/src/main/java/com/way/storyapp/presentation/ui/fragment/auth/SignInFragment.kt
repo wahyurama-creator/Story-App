@@ -17,6 +17,7 @@ import com.way.storyapp.data.remote.model.auth.UserRegisterData
 import com.way.storyapp.databinding.FragmentSignInBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
 import com.way.storyapp.presentation.ui.utils.Resource
+import com.way.storyapp.presentation.ui.utils.hideKeyboard
 import com.way.storyapp.presentation.ui.utils.isValidEmail
 import com.way.storyapp.presentation.ui.viewmodel.AuthViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
@@ -50,6 +51,7 @@ class SignInFragment : Fragment() {
         handleEditText()
 
         binding.button.setOnClickListener {
+            it.hideKeyboard()
             lifecycleScope.launch {
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
