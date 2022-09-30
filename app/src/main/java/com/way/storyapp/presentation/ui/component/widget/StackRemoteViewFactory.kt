@@ -37,7 +37,22 @@ class StackRemoteViewFactory @Inject constructor(
             * ada isinya. Apakah Anda dapat membantu saya?
             * */
 
-            // val tokenAuth = dataStoreRepository.readToken().collect { }
+//            dataStoreRepository.readToken().collect { token ->
+//                val response = repository.remoteDataSource.getAllStory(
+//                    "Bearer $token",
+//                    query
+//                )
+//                when {
+//                    response.isSuccessful -> {
+//                        response.body()?.listStory?.map {
+//                            mWidgetItems.add(it.photoUrl)
+//                        }
+//                    }
+//                    else -> {
+//                        Log.e(RESPONSE_ERROR, "Response Error")
+//                    }
+//                }
+//            }
 
             val response = repository.remoteDataSource.getAllStory(
                 "Bearer $BEARER_TOKEN",
