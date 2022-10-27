@@ -6,6 +6,7 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,6 +26,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <receiver
             android:name=".presentation.ui.component.widget.StoryAppWidget"
             android:exported="false">
@@ -50,7 +55,6 @@
         <service
             android:name="com.way.storyapp.presentation.ui.component.widget.StoryWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
     </application>
 
 </manifest>

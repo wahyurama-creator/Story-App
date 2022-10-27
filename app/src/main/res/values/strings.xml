@@ -37,4 +37,6 @@
     <string name="story_is_empty">Story is Empty</string>
     <string name="user_created">User successfully created</string>
     <string name="story_success">Story success uploaded</string>
+    <string name="maps">Maps</string>
+    <string name="resource_error">Resource not found</string>
 </resources>

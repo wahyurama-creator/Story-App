@@ -23,6 +23,7 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
     id 'com.google.dagger.hilt.android' version "$dagger_hilt_version" apply false
     id 'androidx.navigation.safeargs' version "$nav_version" apply false
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin' version '2.0.1' apply false
 }
 
 task clean(type: Delete) {

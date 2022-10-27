@@ -38,4 +38,6 @@
     <string name="story_is_empty">Story is Empty</string>
     <string name="user_created">Akun berhasil dibuat</string>
     <string name="story_success">Story berhasil diupload</string>
+    <string name="maps">Maps</string>
+    <string name="resource_error">Sumber tidak ditemukan</string>
 </resources>
