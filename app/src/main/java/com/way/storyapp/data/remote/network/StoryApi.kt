@@ -34,5 +34,5 @@ interface StoryApi {
     suspend fun getAllStory(
         @Header("Authorization") auth: String,
         @QueryMap queries: Map<String, Int>,
-    ): List<Story>
+    ): StoryResponse
 }

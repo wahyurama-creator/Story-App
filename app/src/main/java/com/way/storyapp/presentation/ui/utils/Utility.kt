@@ -19,6 +19,8 @@ import android.view.inputmethod.InputMethodManager
 import com.way.storyapp.R
 import java.io.*
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
@@ -137,4 +139,17 @@ fun isCapableNetwork(cm: ConnectivityManager, network: Network?): Boolean {
 fun View.hideKeyboard() {
     val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputManager.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun formatDateToString(fullDate: String): String {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val parseDate = LocalDateTime.parse(fullDate, DateTimeFormatter.ISO_DATE_TIME)
+        val formattedDate = parseDate.format(DateTimeFormatter.ofPattern("EE, dd-MM-yyyy HH:mm"))
+        formattedDate.toString()
+    } else {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val formatter = SimpleDateFormat("EE dd-MM-yyyy HH:mm", Locale.getDefault())
+        val formattedDate = parser.parse(fullDate)?.let { formatter.format(it) }
+        formattedDate.toString()
+    }
 }

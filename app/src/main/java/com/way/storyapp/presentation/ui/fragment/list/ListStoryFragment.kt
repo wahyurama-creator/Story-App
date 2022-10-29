@@ -1,20 +1,21 @@
 package com.way.storyapp.presentation.ui.fragment.list
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.way.storyapp.databinding.FragmentListStoryBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
+import com.way.storyapp.presentation.ui.fragment.list.adapter.LoadingStateAdapter
 import com.way.storyapp.presentation.ui.fragment.list.adapter.StoryAdapter
 import com.way.storyapp.presentation.ui.viewmodel.ListStoryViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class ListStoryFragment : Fragment() {
 
@@ -43,52 +44,20 @@ class ListStoryFragment : Fragment() {
 
         handleOnBackPressed()
         setupRecyclerView()
-
-        getStory()
-
-//        listStoryViewModel.readToken.observe(viewLifecycleOwner) {
-//            getAllStory("Bearer $it")
-//        }
     }
-
-    private fun getStory() {
-        listStoryViewModel.story.observe(viewLifecycleOwner) {
-            storyAdapter.submitData(lifecycle, it)
-            Log.e(TAG, storyAdapter.itemCount.toString())
-        }
-    }
-
-//    private fun getAllStory(token: String) {
-//        showLoading(true)
-//        listStoryViewModel.getAllStory(token, listStoryViewModel.setQueryParam())
-//        listStoryViewModel.storyResponse.observe(viewLifecycleOwner) { response ->
-//            when (response) {
-//                is Resource.Success -> {
-//                    showLoading(false)
-//                    response.data?.let {
-//                        storyAdapter.setData(it)
-//                    }
-//                }
-//                is Resource.Error -> {
-//                    showLoading(false)
-//                    Toast.makeText(
-//                        requireContext(),
-//                        response.message.toString(),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    Log.e("ERROR", response.message.toString())
-//                }
-//                is Resource.Loading -> {
-//                    showLoading(true)
-//                }
-//            }
-//        }
-//    }
 
     private fun setupRecyclerView() {
         binding.rvStory.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = storyAdapter
+            viewLifecycleOwner.lifecycleScope.launch {
+                adapter = storyAdapter.withLoadStateFooter(
+                    footer = LoadingStateAdapter { storyAdapter.retry() }
+                )
+
+                listStoryViewModel.story.observe(viewLifecycleOwner) {
+                    storyAdapter.submitData(lifecycle, it)
+                }
+            }
         }
     }
 
@@ -99,10 +68,6 @@ class ListStoryFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
-    }
-
-    private fun showLoading(isShow: Boolean) {
-        binding.progressBar.visibility = if (isShow) View.VISIBLE else View.INVISIBLE
     }
 
     override fun onDestroyView() {

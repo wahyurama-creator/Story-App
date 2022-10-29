@@ -1,6 +1,5 @@
 package com.way.storyapp.data.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.way.storyapp.data.local.model.DataStoreRepository
@@ -31,18 +30,16 @@ class StoryPagingSource (
             queryParam["location"] = 0
 
             val responseData = api.getAllStory(userToken, queryParam)
-            Log.e(TAG, responseData.toString())
             LoadResult.Page(
-                data = responseData,
+                data = responseData.listStory,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if (responseData.isNullOrEmpty()) null else position + 1
+                nextKey = if (responseData.listStory.isEmpty()) null else position + 1
             )
         } catch (e: Exception) { return LoadResult.Error(e) }
     }
 
     private companion object {
         const val INITIAL_PAGE_INDEX = 1
-        val TAG: String = StoryPagingSource::class.java.simpleName
     }
 
 }

@@ -10,11 +10,11 @@ import coil.load
 import com.way.storyapp.data.remote.model.story.Story
 import com.way.storyapp.databinding.ItemStoryBinding
 import com.way.storyapp.presentation.ui.fragment.list.ListStoryFragmentDirections
+import com.way.storyapp.presentation.ui.utils.formatDateToString
 import javax.inject.Inject
 
 class StoryAdapter @Inject constructor() :
     PagingDataAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBACK) {
-//    private var oldStory = emptyList<Story>()
 
     inner class StoryViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -22,7 +22,7 @@ class StoryAdapter @Inject constructor() :
             binding.ivStory.load(data.photoUrl)
             binding.tvStoryName.text = data.name
             binding.tvDescription.text = data.description
-            binding.tvDate.text = data.createdAt
+            binding.tvDate.text = formatDateToString(data.createdAt)
 
             binding.root.setOnClickListener {
                 val action =
@@ -31,8 +31,6 @@ class StoryAdapter @Inject constructor() :
             }
         }
     }
-
-//    override fun getItemCount(): Int = oldStory.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val binding = ItemStoryBinding.inflate(
@@ -49,13 +47,6 @@ class StoryAdapter @Inject constructor() :
             holder.bind(data)
         }
     }
-
-//    fun setData(newStory: StoryResponse) {
-//        val diffUtil = AdapterDiffUtil(oldStory, newStory.listStory)
-//        val diffResults = DiffUtil.calculateDiff(diffUtil)
-//        oldStory = newStory.listStory
-//        diffResults.dispatchUpdatesTo(this)
-//    }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {

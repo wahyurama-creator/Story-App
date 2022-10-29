@@ -39,4 +39,5 @@
     <string name="story_success">Story success uploaded</string>
     <string name="maps">Maps</string>
     <string name="resource_error">Resource not found</string>
+    <string name="retry">Try Again</string>
 </resources>

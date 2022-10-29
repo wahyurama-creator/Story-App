@@ -40,4 +40,5 @@
     <string name="story_success">Story berhasil diupload</string>
     <string name="maps">Maps</string>
     <string name="resource_error">Sumber tidak ditemukan</string>
+    <string name="retry">Coba lagi</string>
 </resources>
