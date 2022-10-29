@@ -3,6 +3,7 @@ package com.way.storyapp.data.remote.network
 import com.way.storyapp.data.remote.model.auth.LoginResponse
 import com.way.storyapp.data.remote.model.auth.PostResponse
 import com.way.storyapp.data.remote.model.auth.UserRegisterData
+import com.way.storyapp.data.remote.model.story.Story
 import com.way.storyapp.data.remote.model.story.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -33,5 +34,5 @@ interface StoryApi {
     suspend fun getAllStory(
         @Header("Authorization") auth: String,
         @QueryMap queries: Map<String, Int>,
-    ): Response<StoryResponse>
+    ): List<Story>
 }

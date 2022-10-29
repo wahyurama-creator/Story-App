@@ -33,7 +33,7 @@ class MapsViewModel @Inject constructor(
         if (isNetworkAvailable(app)) {
             try {
                 val response = repository.remoteDataSource.getAllStory(auth, queries)
-                _storyResponse.value = handleStoryResponse(response)
+//                _storyResponse.value = handleStoryResponse(response)
             } catch (e: Exception) {
                 _storyResponse.value = Resource.Error(e.message.toString())
             }

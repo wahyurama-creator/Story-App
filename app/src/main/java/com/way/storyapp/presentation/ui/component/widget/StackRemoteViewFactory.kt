@@ -34,16 +34,16 @@ class StackRemoteViewFactory @Inject constructor(
                 "Bearer $BEARER_TOKEN",
                 query
             )
-            when {
-                response.isSuccessful -> {
-                    response.body()?.listStory?.map {
-                        mWidgetItems.add(it.photoUrl)
-                    }
-                }
-                else -> {
-                    Log.e(RESPONSE_ERROR, "Response Error")
-                }
-            }
+//            when {
+//                response.isSuccessful -> {
+//                    response.body()?.listStory?.map {
+//                        mWidgetItems.add(it.photoUrl)
+//                    }
+//                }
+//                else -> {
+//                    Log.e(RESPONSE_ERROR, "Response Error")
+//                }
+//            }
         }
     }
 

@@ -1,11 +1,11 @@
 package com.way.storyapp.presentation.ui.fragment.list
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.way.storyapp.databinding.FragmentListStoryBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
 import com.way.storyapp.presentation.ui.fragment.list.adapter.StoryAdapter
-import com.way.storyapp.presentation.ui.utils.Resource
 import com.way.storyapp.presentation.ui.viewmodel.ListStoryViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
 
@@ -45,37 +44,46 @@ class ListStoryFragment : Fragment() {
         handleOnBackPressed()
         setupRecyclerView()
 
-        listStoryViewModel.readToken.observe(viewLifecycleOwner) {
-            getAllStory("Bearer $it")
+        getStory()
+
+//        listStoryViewModel.readToken.observe(viewLifecycleOwner) {
+//            getAllStory("Bearer $it")
+//        }
+    }
+
+    private fun getStory() {
+        listStoryViewModel.story.observe(viewLifecycleOwner) {
+            storyAdapter.submitData(lifecycle, it)
+            Log.e(TAG, storyAdapter.itemCount.toString())
         }
     }
 
-    private fun getAllStory(token: String) {
-        showLoading(true)
-        listStoryViewModel.getAllStory(token, listStoryViewModel.setQueryParam())
-        listStoryViewModel.storyResponse.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Success -> {
-                    showLoading(false)
-                    response.data?.let {
-                        storyAdapter.setData(it)
-                    }
-                }
-                is Resource.Error -> {
-                    showLoading(false)
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Log.e("ERROR", response.message.toString())
-                }
-                is Resource.Loading -> {
-                    showLoading(true)
-                }
-            }
-        }
-    }
+//    private fun getAllStory(token: String) {
+//        showLoading(true)
+//        listStoryViewModel.getAllStory(token, listStoryViewModel.setQueryParam())
+//        listStoryViewModel.storyResponse.observe(viewLifecycleOwner) { response ->
+//            when (response) {
+//                is Resource.Success -> {
+//                    showLoading(false)
+//                    response.data?.let {
+//                        storyAdapter.setData(it)
+//                    }
+//                }
+//                is Resource.Error -> {
+//                    showLoading(false)
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                    Log.e("ERROR", response.message.toString())
+//                }
+//                is Resource.Loading -> {
+//                    showLoading(true)
+//                }
+//            }
+//        }
+//    }
 
     private fun setupRecyclerView() {
         binding.rvStory.apply {
@@ -97,8 +105,17 @@ class ListStoryFragment : Fragment() {
         binding.progressBar.visibility = if (isShow) View.VISIBLE else View.INVISIBLE
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        listStoryViewModel.story.removeObservers(viewLifecycleOwner)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private val TAG = ListStoryFragment::class.java.simpleName
     }
 }

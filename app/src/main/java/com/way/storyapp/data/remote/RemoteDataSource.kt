@@ -9,7 +9,7 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(private val storyApi: StoryApi) {
+class RemoteDataSource @Inject constructor(val storyApi: StoryApi) {
     suspend fun register(userRegisterData: UserRegisterData): Response<PostResponse> =
         storyApi.register(userRegisterData)
 
