@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.way.storyapp.databinding.FragmentListStoryBinding
 import com.way.storyapp.presentation.ui.activity.MainActivity
@@ -17,6 +18,7 @@ import com.way.storyapp.presentation.ui.viewmodel.ListStoryViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
+@ExperimentalPagingApi
 class ListStoryFragment : Fragment() {
 
     private var _binding: FragmentListStoryBinding? = null

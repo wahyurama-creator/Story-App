@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.google.gson.Gson
 import com.way.storyapp.data.Repository
-import com.way.storyapp.data.local.model.DataStoreRepository
+import com.way.storyapp.data.local.datastore.DataStoreRepository
 import com.way.storyapp.data.remote.model.auth.PostResponse
 import com.way.storyapp.presentation.ui.utils.Resource
 import com.way.storyapp.presentation.ui.utils.isNetworkAvailable

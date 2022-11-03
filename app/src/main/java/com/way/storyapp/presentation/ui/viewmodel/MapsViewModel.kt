@@ -3,13 +3,12 @@ package com.way.storyapp.presentation.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.way.storyapp.data.Repository
-import com.way.storyapp.data.local.model.DataStoreRepository
+import com.way.storyapp.data.local.datastore.DataStoreRepository
 import com.way.storyapp.data.remote.model.story.StoryResponse
 import com.way.storyapp.presentation.ui.utils.Resource
 import com.way.storyapp.presentation.ui.utils.isNetworkAvailable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,7 +32,7 @@ class MapsViewModel @Inject constructor(
         if (isNetworkAvailable(app)) {
             try {
                 val response = repository.remoteDataSource.getAllStory(auth, queries)
-//                _storyResponse.value = handleStoryResponse(response)
+                _storyResponse.value = handleStoryResponse(response)
             } catch (e: Exception) {
                 _storyResponse.value = Resource.Error(e.message.toString())
             }
@@ -42,26 +41,18 @@ class MapsViewModel @Inject constructor(
         }
     }
 
-    private fun handleStoryResponse(response: Response<StoryResponse>): Resource<StoryResponse> {
-        when {
-            response.message().toString().contains("timeout") -> {
-                return Resource.Error("Timeout")
+    private fun handleStoryResponse(response: StoryResponse): Resource<StoryResponse> {
+        return when {
+            response.message.contains("timeout") -> {
+                Resource.Error("Timeout")
             }
-            response.code() == 402 -> {
-                return Resource.Error("Unauthorized")
+            response.listStory.isEmpty() -> {
+                Resource.Error("Story not found")
             }
-            response.body()!!.listStory.isEmpty() -> {
-                return Resource.Error("Story not found")
+            !response.error || response.message == "Stories fetched successfully" -> {
+                Resource.Success(response)
             }
-            response.isSuccessful -> {
-                val recipes = response.body()
-                return if (recipes != null) {
-                    Resource.Success(recipes)
-                } else {
-                    Resource.Error(response.message())
-                }
-            }
-            else -> return Resource.Error(response.message())
+            else -> Resource.Error(response.message)
         }
     }
 }

@@ -1,13 +1,14 @@
-package com.way.storyapp.data.local.model
+package com.way.storyapp.data.local.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import com.way.storyapp.data.local.model.DataStoreRepository.Companion.PREFERENCES_KEY
-import com.way.storyapp.data.local.model.DataStoreRepository.PreferencesKey.name
-import com.way.storyapp.data.local.model.DataStoreRepository.PreferencesKey.stateLogin
-import com.way.storyapp.data.local.model.DataStoreRepository.PreferencesKey.token
+import com.way.storyapp.data.local.datastore.DataStoreRepository.Companion.PREFERENCES_KEY
+import com.way.storyapp.data.local.datastore.DataStoreRepository.PreferencesKey.name
+import com.way.storyapp.data.local.datastore.DataStoreRepository.PreferencesKey.stateLogin
+import com.way.storyapp.data.local.datastore.DataStoreRepository.PreferencesKey.token
+import com.way.storyapp.data.local.model.UserModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

@@ -34,16 +34,13 @@ class StackRemoteViewFactory @Inject constructor(
                 "Bearer $BEARER_TOKEN",
                 query
             )
-//            when {
-//                response.isSuccessful -> {
-//                    response.body()?.listStory?.map {
-//                        mWidgetItems.add(it.photoUrl)
-//                    }
-//                }
-//                else -> {
-//                    Log.e(RESPONSE_ERROR, "Response Error")
-//                }
-//            }
+            if (!response.error) {
+                response.listStory.map {
+                    mWidgetItems.add(it.photoUrl)
+                }
+            } else {
+                Log.e(TAG, "Response error when data set changed")
+            }
         }
     }
 
@@ -81,7 +78,7 @@ class StackRemoteViewFactory @Inject constructor(
     override fun hasStableIds(): Boolean = false
 
     companion object {
-        private const val RESPONSE_ERROR = "RESPONSE_ERROR"
+        private val TAG = StackRemoteViewFactory::class.java.simpleName
         private const val BEARER_TOKEN =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLXFFdzQtVHlpeVRkRnBnNHEiLCJpYXQiOjE2NjM2ODQ2MzJ9.P5Acm7UFLRMvyTcKBfEvAYpqHQJQsq9E_MsR5u2xo8w"
     }

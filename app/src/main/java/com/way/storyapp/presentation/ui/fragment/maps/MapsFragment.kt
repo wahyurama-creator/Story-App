@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,6 +30,8 @@ import com.way.storyapp.presentation.ui.activity.MainActivity
 import com.way.storyapp.presentation.ui.utils.Resource
 import com.way.storyapp.presentation.ui.viewmodel.MapsViewModel
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.util.*
 
 class MapsFragment : Fragment() {
@@ -46,10 +49,8 @@ class MapsFragment : Fragment() {
         this.googleMap = googleMap
 
         googleMap.setOnMapLoadedCallback {
-            mapsViewModel.readToken.observe(viewLifecycleOwner) {
-                if (!it.isNullOrEmpty()) {
-                    getAllStoryLocation("Bearer $it")
-                }
+            lifecycleScope.launch {
+                getAllStoryLocation("Bearer ${mapsViewModel.readToken.asFlow().first()}")
             }
         }
 
@@ -81,16 +82,19 @@ class MapsFragment : Fragment() {
         getDeviceLocation()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        factory = (activity as MainActivity).factory
+        mapsViewModel = ViewModelProvider(this, factory)[MapsViewModel::class.java]
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
-
-        factory = (activity as MainActivity).factory
-        mapsViewModel = ViewModelProvider(this, factory)[MapsViewModel::class.java]
-
         return binding.root
     }
 
@@ -111,8 +115,11 @@ class MapsFragment : Fragment() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION,
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION,
             ) == PackageManager.PERMISSION_GRANTED
-
         ) {
             googleMap.isMyLocationEnabled = true
         } else {
@@ -146,6 +153,7 @@ class MapsFragment : Fragment() {
         )
     }
 
+    @Suppress("DEPRECATION")
     private fun getAddress(latLng: LatLng): String {
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         lateinit var address: Address
@@ -163,7 +171,6 @@ class MapsFragment : Fragment() {
     }
 
     private fun getAllStoryLocation(token: String) {
-        showLoading(true)
         mapsViewModel.getAllStoryLocation(token, setQueryParam())
         mapsViewModel.storyResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -180,7 +187,6 @@ class MapsFragment : Fragment() {
                         response.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
-                    Log.e("ERROR", response.message.toString())
                 }
                 is Resource.Loading -> {
                     showLoading(true)

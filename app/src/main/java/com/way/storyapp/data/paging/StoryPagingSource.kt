@@ -2,7 +2,7 @@ package com.way.storyapp.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.way.storyapp.data.local.model.DataStoreRepository
+import com.way.storyapp.data.local.datastore.DataStoreRepository
 import com.way.storyapp.data.remote.model.story.Story
 import com.way.storyapp.data.remote.network.StoryApi
 import kotlinx.coroutines.flow.first

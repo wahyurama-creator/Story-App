@@ -64,13 +64,14 @@ class DetailFragment : Fragment() {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun getAddress(latLng: LatLng?): String {
         if (latLng != null) {
             val geocoder = Geocoder(requireContext(), Locale.getDefault())
-            val address: Address?
+            val address: Address
             val addressText: String
 
-            val addresses: List<Address> =
+            val addresses =
                 geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
 
             if (addresses.isNotEmpty()) {

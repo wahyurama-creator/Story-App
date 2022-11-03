@@ -2,7 +2,8 @@ package com.way.storyapp.di
 
 import android.app.Application
 import com.way.storyapp.data.Repository
-import com.way.storyapp.data.local.model.DataStoreRepository
+import com.way.storyapp.data.local.datastore.DataStoreRepository
+import com.way.storyapp.data.local.room.StoryDatabase
 import com.way.storyapp.presentation.ui.viewmodel.ViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -21,8 +22,9 @@ object FactoryModule {
     fun provideViewModelFactory(
         repository: Repository,
         app: Application,
-        dataStoreRepository: DataStoreRepository
+        dataStoreRepository: DataStoreRepository,
+        storyDatabase: StoryDatabase
     ): ViewModelFactory = ViewModelFactory(
-        repository, app, dataStoreRepository
+        repository, app, dataStoreRepository, storyDatabase
     )
 }
